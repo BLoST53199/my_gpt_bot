@@ -3,19 +3,15 @@ import openai
 import telebot
 from flask import Flask, request
 
-# Получаем переменные окружения
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-WEBHOOK_URL = os.getenv("WEBHOOK_URL")  # Укажи этот URL в Render (https://...onrender.com)
+WEBHOOK_URL = os.getenv("WEBHOOK_URL")
 
-# Устанавливаем API-ключи
 bot = telebot.TeleBot(TELEGRAM_BOT_TOKEN)
 openai.api_key = OPENAI_API_KEY
 
-# Flask-приложение
-app = Flask(__name__)  # исправлено: было name, стало name
+app = Flask(__name__)
 
-# Обработчик сообщений
 @bot.message_handler(func=lambda message: True)
 def handle_message(message):
     try:
@@ -31,7 +27,6 @@ def handle_message(message):
     except Exception as e:
         bot.send_message(message.chat.id, f"Произошла ошибка: {e}")
 
-# Обработка входящих запросов от Telegram
 @app.route(f"/{TELEGRAM_BOT_TOKEN}", methods=["POST"])
 def webhook():
     json_string = request.get_data().decode("utf-8")
@@ -39,7 +34,6 @@ def webhook():
     bot.process_new_updates([update])
     return "OK", 200
 
-# Точка входа
 if name == "main":  # исправлено: было name == "__main__"
     bot.remove_webhook()
     bot.set_webhook(url=f"{WEBHOOK_URL}/{TELEGRAM_BOT_TOKEN}")
