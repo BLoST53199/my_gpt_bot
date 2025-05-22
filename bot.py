@@ -34,7 +34,7 @@ def webhook():
     bot.process_new_updates([update])
     return "OK", 200
 
-if name == "main":  # исправлено: было name == "__main__"
+if name == "__main__":
     bot.remove_webhook()
     bot.set_webhook(url=f"{WEBHOOK_URL}/{TELEGRAM_BOT_TOKEN}")
     port = int(os.environ.get("PORT", 5000))
