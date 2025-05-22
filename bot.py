@@ -1,4 +1,5 @@
-import os
+import os 
+import logging
 import openai
 import telebot
 from flask import Flask, request
@@ -37,9 +38,9 @@ def handle_message(message):
 def index():
     return "Бот работает", 200
     
-@app.route(/7839294758:AAENWmPCMQZdHEAFu9ppCwAWJsWiWVArgRs, methods=["POST"])
+@app.route(f"/{TELEGRAM_BOT_TOKEN}", methods=["POST"])
 def webhook():
-    logging.info("Webhook got a request")
+    logging.info("Webhook got a request")  # 👉 Эта строка будет выводиться в Render логах
     json_string = request.get_data().decode("utf-8")
     update = telebot.types.Update.de_json(json_string)
     bot.process_new_updates([update])
