@@ -41,6 +41,29 @@ def run_bot():
     app_bot.run_polling()
 
 # Запуск Flask и Telegram-бота одновременно
+from flask import Flask, request
+
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    return "Bot is running!"
+
+@app.route(f'/{TELEGRAM_BOT_TOKEN}', methods=['POST'])
+def receive_update():
+    update = Update.de_json(request.get_json(force=True), bot)
+    application.process_update(update)
+    return 'ok'
+
+# Запуск Webhook
+if __name__ == '__main__':
+    PORT = int(os.environ.get('PORT', 5000))
+    HOST = '0.0.0.0'
+    WEBHOOK_URL = f"https://{os.environ.get('RENDER_EXTERNAL_HOSTNAME')}/{TELEGRAM_BOT_TOKEN}"
+    
+    bot.set_webhook(WEBHOOK_URL)
+    app.run(host=HOST, port=PORT)
+
 if __name__ == '__main__':
     threading.Thread(target=run_bot).start()
     port = int(os.environ.get('PORT', 5000))
