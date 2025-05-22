@@ -13,7 +13,7 @@ bot = telebot.TeleBot(TELEGRAM_BOT_TOKEN)
 openai.api_key = OPENAI_API_KEY
 
 # Flask-приложение
-app = Flask(name)  # исправлено: было name, стало name
+app = Flask(__name__)  # исправлено: было name, стало name
 
 # Обработчик сообщений
 @bot.message_handler(func=lambda message: True)
