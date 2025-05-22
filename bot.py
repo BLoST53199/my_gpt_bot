@@ -40,7 +40,7 @@ def webhook():
     return "OK", 200
 
 # Точка входа
-if name == "main":  # исправлено: было name == "main"
+if name == "main":  # исправлено: было name == "__main__"
     bot.remove_webhook()
     bot.set_webhook(url=f"{WEBHOOK_URL}/{TELEGRAM_BOT_TOKEN}")
     port = int(os.environ.get("PORT", 5000))
