@@ -37,7 +37,7 @@ def handle_message(message):
 def index():
     return "Бот работает", 200
     
-@app.route(f"/7839294758:AAENWmPCMQZdHEAFu9ppCwAWJsWiWVArgRs, methods=["POST"])
+@app.route(/7839294758:AAENWmPCMQZdHEAFu9ppCwAWJsWiWVArgRs, methods=["POST"])
 def webhook():
     logging.info("Webhook got a request")
     json_string = request.get_data().decode("utf-8")
