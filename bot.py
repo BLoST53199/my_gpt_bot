@@ -32,7 +32,11 @@ def handle_message(message):
     except Exception as e:
         bot.send_message(message.chat.id, "Ошибка: " + str(e))
         print("Ошибка OpenAI:", e)
-
+        
+@app.route("/", methods=["GET"])
+def index():
+    return "Бот работает", 200
+    
 @app.route(f"/{TELEGRAM_BOT_TOKEN}", methods=["POST"])
 def webhook():
     json_string = request.get_data().decode("utf-8")
