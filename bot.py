@@ -46,10 +46,11 @@ def handle_message(message):
 def webhook():
     logging.info("Webhook получил запрос")
     json_string = request.get_data().decode("utf-8")
+    logging.info(f"Содержимое запроса: {json_string}")
     update = telebot.types.Update.de_json(json_string)
     bot.process_new_updates([update])
     return "OK", 200
-
+    
 # Главная страница (для проверки работоспособности)
 @app.route("/", methods=["GET"])
 def index():
