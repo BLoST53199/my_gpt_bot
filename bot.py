@@ -37,7 +37,7 @@ def handle_message(message):
 def index():
     return "Бот работает", 200
     
-@app.route(f"/{TELEGRAM_BOT_TOKEN}", methods=["POST"])
+@app.route("/7839294758:AAENWmPCMQZdHEAFu9ppCwAWJsWiWVArgRs", methods=["POST"])
 def webhook():
     json_string = request.get_data().decode("utf-8")
     update = telebot.types.Update.de_json(json_string)
@@ -46,5 +46,5 @@ def webhook():
 
 if __name__ == "__main__":
     bot.remove_webhook()
-    bot.set_webhook(url=f"{WEBHOOK_URL}/{TELEGRAM_BOT_TOKEN}")
+    bot.set_webhook(url=WEBHOOK_URL)
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 10000)))
